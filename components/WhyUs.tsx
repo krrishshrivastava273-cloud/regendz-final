@@ -5,7 +5,7 @@ import { whyCards } from "@/lib/content";
 
 export default function WhyUs() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="pt-4 pb-20 md:pt-6 md:pb-28">
       <div className="container-shell">
         <Reveal>
           <p className="kicker mb-4">Why Regendz IT</p>

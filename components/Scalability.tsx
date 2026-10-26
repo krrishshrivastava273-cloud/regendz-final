@@ -96,7 +96,7 @@ export default function Scalability() {
           <p className="kicker mb-6">Ready to build what’s next?</p>
           <Reveal>
             <Link
-              href="#contact"
+              href="/#contact"
               className="inline-flex items-center justify-center rounded-full bg-lime px-8 py-4 font-mono text-sm font-semibold uppercase tracking-widest text-black transition-all hover:scale-105 hover:bg-[#d4ff33] hover:shadow-[0_0_20px_rgba(200,255,0,0.4)]"
             >
               Start a project <span className="ml-2">→</span>

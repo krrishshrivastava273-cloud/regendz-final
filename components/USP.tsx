@@ -9,13 +9,22 @@ export default function USP() {
 
   return (
     <section className="relative py-20 md:py-28">
-      <div className="overflow-hidden border-y border-white/5 bg-lime py-3 text-ink">
-        <div className="marquee-track flex w-max gap-10 font-mono text-xs uppercase tracking-[0.28em]">
+      <div className="overflow-hidden border-y border-white/[0.06] bg-transparent py-3.5 sm:py-4">
+        <div className="marquee-track flex w-max gap-8 whitespace-nowrap font-mono text-[0.68rem] uppercase tracking-[0.2em] text-white/55 will-change-transform sm:gap-10 sm:text-xs sm:tracking-[0.28em]">
           {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i} className="flex gap-10">
-              <span>Built around your business</span>
-              <span>Designed to scale with you</span>
-              <span>Your website should grow with it</span>
+            <span key={i} className="flex gap-8 sm:gap-10">
+              <span>
+                Built around your <span className="text-lime/75">business</span>
+              </span>
+              <span className="text-white/20">·</span>
+              <span>
+                Designed to <span className="text-lime/75">scale</span> with you
+              </span>
+              <span className="text-white/20">·</span>
+              <span>
+                Your <span className="text-lime/75">website</span> should grow with it
+              </span>
+              <span className="text-white/20">·</span>
             </span>
           ))}
         </div>

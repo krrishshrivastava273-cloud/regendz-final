@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   Cpu,
   Globe,
@@ -356,7 +357,7 @@ export default function HeroScene() {
       ════════════════════════════════════════════════════════ */}
       <div
         ref={logoRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 will-change-transform"
+        className="pointer-events-none absolute left-1/2 top-1/2 will-change-transform flex items-center justify-center"
         style={{
           width: "36%",
           height: "36%",
@@ -366,8 +367,8 @@ export default function HeroScene() {
       >
         {/* Soft backlight bloom */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-[2rem] bg-lime/15 blur-2xl animate-pulse-glow"
-          style={{ transform: "scale(1.2) translate3d(0,0,0)" }}
+          className="pointer-events-none absolute inset-0 rounded-[2rem] bg-lime/20 blur-2xl animate-pulse-glow"
+          style={{ transform: "scale(1.25) translate3d(0,0,0)" }}
         />
 
         {/* Ambient shadow underneath logo */}
@@ -376,38 +377,17 @@ export default function HeroScene() {
           style={{ transform: "translate3d(0, 14px, 0)" }}
         />
 
-        {/* THE REGENDZ "r" LOGO SVG */}
-        <svg
-          viewBox="0 0 100 100"
-          className="relative h-full w-full"
-          style={{ display: "block", overflow: "visible" }}
-        >
-          <defs>
-            <linearGradient id="hero-badge-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#d9ff00" />
-              <stop offset="55%" stopColor="#c8ff00" />
-              <stop offset="100%" stopColor="#9ed100" />
-            </linearGradient>
-            <linearGradient id="hero-r-fill" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#1a1a1a" />
-              <stop offset="100%" stopColor="#000000" />
-            </linearGradient>
-          </defs>
-
-          {/* Lime badge container with cut corner */}
-          <path
-            d="M 0 0 H 100 V 70 L 70 100 H 0 Z"
-            fill="url(#hero-badge-bg)"
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="0.8"
+        {/* ORIGINAL REGENDZ "r" LIME LOGO ASSET */}
+        <div className="relative h-full w-full flex items-center justify-center">
+          <Image
+            src="/images/regendz-symbol.png"
+            alt="Regendz IT Symbol"
+            width={701}
+            height={701}
+            priority
+            className="h-full w-full object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.65)] drop-shadow-[0_0_20px_rgba(200,255,0,0.22)]"
           />
-
-          {/* "r" logo letterform */}
-          <path
-            d="M 32 25 H 48 V 42 Q 58 25 70 25 V 45 Q 58 45 48 62 V 80 H 32 Z"
-            fill="url(#hero-r-fill)"
-          />
-        </svg>
+        </div>
       </div>
 
       {/* ════════════════════════════════════════════════════════

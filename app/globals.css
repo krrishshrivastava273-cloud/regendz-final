@@ -284,3 +284,34 @@ body {
     animation: none !important;
   }
 }
+
+/* Brand page: subtle shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Brand cards: accent pulse */
+@keyframes accent-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-accent-pulse {
+  animation: accent-pulse 3s ease-in-out infinite;
+}
+
+/* Dropdown slide-in */
+@keyframes dropdown-in {
+  from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-dropdown-in {
+  animation: dropdown-in 0.2s ease-out forwards;
+}

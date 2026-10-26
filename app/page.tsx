@@ -8,7 +8,6 @@ import Marketing from "@/components/Marketing";
 import Portfolio from "@/components/Portfolio";
 import About from "@/components/About";
 import CTA from "@/components/CTA";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,13 +18,12 @@ export default function Home() {
         <Hero />
         <USP />
         <Services />
-        <WhyUs />
         <Process />
         <Marketing />
         <Portfolio />
         <About />
+        <WhyUs />
         <CTA />
-        <Contact />
       </main>
       <Footer />
     </>

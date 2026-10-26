@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 
 /* ── Data ────────────────────────────────────────────────────── */
@@ -34,56 +34,80 @@ const steps = [
   },
 ];
 
-const stepNodes = [
-  // 01 DISCOVER
+/* ── Five Stage Glass Bubbles Data ───────────────────────────── */
+
+interface StageBubble {
+  id: string;
+  n: string;
+  title: string;
+  keyword: string;
+  size: number; // diameter in px on desktop
+  // Separate position (percentages of visual box)
+  separatePos: { x: number; y: number };
+  // Float drift range (px)
+  floatDrift: { x: number; y: number; rotate: number };
+  // Assembled position around center cluster (percentages)
+  assemblePos: { x: number; y: number };
+  // Assemble sequence index (1-based stagger order)
+  assembleOrder: number;
+}
+
+const STAGE_BUBBLES: StageBubble[] = [
   {
-    label: "DISCOVERY",
-    nodes: [
-      { id: "n0", text: "RESEARCH", x: 25, y: 20, emphasis: true },
-      { id: "n1", text: "AUDIENCE", x: 80, y: 35, emphasis: false },
-      { id: "n2", text: "GOALS",    x: 50, y: 82, emphasis: false },
-    ],
+    id: "stage-01",
+    n: "01",
+    title: "Discover",
+    keyword: "RESEARCH",
+    size: 140, // top-left large bubble
+    separatePos: { x: 20, y: 22 },
+    floatDrift: { x: 10, y: -14, rotate: 5 },
+    assemblePos: { x: 44, y: 40 }, // top-left in reference
+    assembleOrder: 1,
   },
-  // 02 STRATEGIZE
   {
-    label: "STRATEGY",
-    nodes: [
-      { id: "n0", text: "MARKET",     x: 18, y: 25, emphasis: false },
-      { id: "n1", text: "STRATEGY",   x: 75, y: 18, emphasis: false },
-      { id: "n2", text: "ROADMAP",    x: 82, y: 75, emphasis: false },
-      { id: "n3", text: "TECHNOLOGY", x: 25, y: 82, emphasis: false },
-    ],
+    id: "stage-02",
+    n: "02",
+    title: "Strategize",
+    keyword: "STRATEGY",
+    size: 125, // top-right bubble
+    separatePos: { x: 78, y: 24 },
+    floatDrift: { x: -12, y: -10, rotate: -6 },
+    assemblePos: { x: 55, y: 44 }, // top-right in reference
+    assembleOrder: 2,
   },
-  // 03 DESIGN
   {
-    label: "DESIGN",
-    nodes: [
-      { id: "n0", text: "UX",         x: 30, y: 15, emphasis: false },
-      { id: "n1", text: "UI",         x: 85, y: 40, emphasis: false },
-      { id: "n2", text: "BRAND",      x: 15, y: 60, emphasis: false },
-      { id: "n3", text: "EXPERIENCE", x: 65, y: 85, emphasis: false },
-    ],
+    id: "stage-03",
+    n: "03",
+    title: "Design",
+    keyword: "DESIGN",
+    size: 96, // bottom-left foreground bubble
+    separatePos: { x: 24, y: 74 },
+    floatDrift: { x: -8, y: 12, rotate: 8 },
+    assemblePos: { x: 42, y: 56 }, // bottom-left
+    assembleOrder: 3,
   },
-  // 04 BUILD
   {
-    label: "BUILD",
-    nodes: [
-      { id: "n0", text: "WEB", x: 18, y: 25, emphasis: false },
-      { id: "n1", text: "APP", x: 82, y: 25, emphasis: false },
-      { id: "n2", text: "AI",  x: 28, y: 78, emphasis: false },
-      { id: "n3", text: "API", x: 78, y: 78, emphasis: false },
-    ],
+    id: "stage-04",
+    n: "04",
+    title: "Build",
+    keyword: "BUILD",
+    size: 104, // bottom-center bubble
+    separatePos: { x: 50, y: 84 },
+    floatDrift: { x: 6, y: 10, rotate: -4 },
+    assemblePos: { x: 49, y: 58 }, // bottom-center
+    assembleOrder: 4,
   },
-  // 05 LAUNCH & GROW
   {
-    label: "GROWTH",
-    nodes: [
-      { id: "n0", text: "LAUNCH",    x: 22, y: 18, emphasis: false },
-      { id: "n1", text: "ANALYTICS", x: 78, y: 22, emphasis: false },
-      { id: "n2", text: "MARKETING", x: 18, y: 75, emphasis: false },
-      { id: "n3", text: "SCALE",     x: 82, y: 82, emphasis: false },
-    ],
-  }
+    id: "stage-05",
+    n: "05",
+    title: "Launch & Grow",
+    keyword: "GROWTH",
+    size: 100, // bottom-right foreground bubble
+    separatePos: { x: 78, y: 72 },
+    floatDrift: { x: -6, y: -8, rotate: 6 },
+    assemblePos: { x: 58, y: 56 }, // bottom-right
+    assembleOrder: 5,
+  },
 ];
 
 /* ── Reduced-motion hook ─────────────────────────────────────── */
@@ -147,7 +171,7 @@ export default function Process() {
   return (
     <section
       id="process"
-      className="relative overflow-hidden py-24 md:py-32"
+      className="relative overflow-hidden pt-6 pb-24 md:pt-8 md:pb-32"
       style={{ scrollMarginTop: "5rem" }}
     >
       {/* Background */}
@@ -248,286 +272,335 @@ export default function Process() {
             })}
           </div>
 
-          {/* RIGHT: Connected System Visualization */}
-          <SystemVisualization active={active} reducedMotion={reducedMotion} />
+          {/* RIGHT: Floating Bubble Assembly Visualization */}
+          <BubbleAssemblyVisualization
+            active={active}
+            onSelect={handleClick}
+            reducedMotion={reducedMotion}
+          />
         </div>
       </div>
     </section>
   );
 }
 
-/* ── System Visualization ────────────────────────────────────── */
+/* ── Floating Bubble Assembly Visualization ──────────────────── */
 
-function SystemVisualization({
+function BubbleAssemblyVisualization({
   active,
+  onSelect,
   reducedMotion,
 }: {
   active: number;
+  onSelect?: (i: number) => void;
   reducedMotion: boolean;
 }) {
-  const centerX = 50;
-  const centerY = 45;
-  const currentStepData = stepNodes[active];
+  const prevActiveRef = useRef(active);
 
-  // Common transition for smooth layout changes
-  const layoutTransition = {
-    type: "spring" as const,
-    stiffness: 80,
-    damping: 20,
-    mass: 1,
-  };
+  useEffect(() => {
+    prevActiveRef.current = active;
+  }, [active]);
+
+  const prevActive = prevActiveRef.current;
+  const isMovingForward = active >= prevActive;
+
+  // Visual status pill text describing current interaction state
+  const stageStatus =
+    active === 0
+      ? "Step 01 · Discover Initialized"
+      : active === 1
+      ? "Step 02 · Strategize Connected"
+      : active === 2
+      ? "Step 03 · Design Assembled"
+      : active === 3
+      ? "Step 04 · Build Formed"
+      : "Step 05 · Complete Cluster";
 
   return (
-    <div className="relative h-[450px] w-full overflow-hidden rounded-[28px] border border-white/[0.08] bg-ink-2 md:h-[600px] flex flex-col">
-      {/* Background grid */}
-      <div className="grid-stage absolute inset-0 opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
+    <div className="relative h-[480px] w-full overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#07080b] md:h-[620px] flex flex-col justify-between shadow-2xl">
+      {/* Background atmosphere: subtle grid + radial vignette */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(200,255,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.3) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
 
-      {/* Main Graph Area */}
-      <div className="relative flex-1 w-full">
-        {/* Step Label */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStepData.label}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.4 }}
-            className="absolute left-6 top-6 z-20"
-          >
-            <div className="flex items-center gap-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_8px_rgba(200,255,0,0.8)]" />
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-lime/80">
-                {currentStepData.label}
-              </span>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Center Node: REGENDZ IT */}
-        <div className="absolute left-1/2 top-[45%] z-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-          <div className="relative flex items-center justify-center">
-            {/* Soft Radial Glow that pulses on active step change */}
-            <motion.div
-              key={`pulse-${active}`}
-              className="absolute h-32 w-32 rounded-full bg-lime/10 blur-xl"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: [1.3, 1], opacity: [0.3, 0.15] }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            />
-            {/* Base breathing glow */}
-            <motion.div
-              className="absolute h-24 w-24 rounded-full bg-lime/5 blur-lg"
-              animate={reducedMotion ? {} : { scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <div className="relative rounded-full border border-lime/40 bg-black px-6 py-3 shadow-[0_0_30px_rgba(200,255,0,0.15)]">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-lime">
-                REGENDZ IT
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Step-specific central adornments */}
-        <AnimatePresence>
-          {active === 2 && !reducedMotion && (
-            // DESIGN step: Wireframe around center
-            <motion.div
-              key="design-adornment"
-              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.8 }}
-              className="absolute left-1/2 top-[45%] z-10 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-dashed border-lime/20"
-            />
-          )}
-          {active === 4 && !reducedMotion && (
-            // GROW step: Upward growth rings
-            <motion.div
-              key="grow-adornment"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute left-1/2 top-[45%] z-10 h-64 w-64 -translate-x-1/2 -translate-y-1/2"
-            >
-              {[1, 2, 3].map((i) => (
-                <motion.div
-                  key={`ring-${i}`}
-                  className="absolute inset-0 rounded-full border border-lime/10"
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1.5, opacity: 0 }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay: i * 1,
-                    ease: "easeOut",
-                  }}
-                />
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Connections Layer */}
-        <svg className="absolute inset-0 h-full w-full pointer-events-none" preserveAspectRatio="none">
-          {currentStepData.nodes.map((node, i) => {
-            const isTargetCenter = active === 0; // Discover step particles travel inward
-            const particleDelay = i * 0.2;
-            const particleDuration = active === 3 ? 1.5 : active === 4 ? 2 : 3; // Faster in Build/Grow
-            const particleCount = active === 4 ? 2 : 1; // More particles in Grow
-
-            return (
-              <g key={`connection-${node.id}`}>
-                {/* Flowing connection line for Strategy step */}
-                {active === 1 && i > 0 && (
-                  <motion.path
-                    d={`M ${currentStepData.nodes[i - 1].x}%,${currentStepData.nodes[i - 1].y}% Q ${centerX}%,${centerY}% ${node.x}%,${node.y}%`}
-                    fill="none"
-                    stroke="rgba(200,255,0,0.05)"
-                    strokeWidth="1"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, ease: "easeInOut" }}
-                  />
-                )}
-
-                {/* Direct Connection line to center */}
-                <motion.line
-                  initial={false}
-                  animate={{
-                    x1: `${centerX}%`,
-                    y1: `${centerY}%`,
-                    x2: `${node.x}%`,
-                    y2: `${node.y}%`,
-                  }}
-                  stroke="rgba(200,255,0,0.2)"
-                  strokeWidth="1"
-                  strokeDasharray={active === 3 ? "4 4" : "0"} // Dashed for BUILD
-                  transition={layoutTransition}
-                />
-
-                {/* Draw line animation on step change */}
-                <motion.line
-                  key={`draw-${active}-${node.id}`}
-                  x1={`${centerX}%`}
-                  y1={`${centerY}%`}
-                  x2={`${node.x}%`}
-                  y2={`${node.y}%`}
-                  stroke="rgba(200,255,0,0.5)"
-                  strokeWidth="1.5"
-                  initial={{ pathLength: 0, opacity: 1 }}
-                  animate={{ pathLength: 1, opacity: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                />
-
-                {/* Traveling Particles */}
-                {!reducedMotion &&
-                  Array.from({ length: particleCount }).map((_, pIdx) => (
-                    <motion.circle
-                      key={`particle-${active}-${node.id}-${pIdx}`}
-                      r="1.5"
-                      fill="#c8ff00"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 1, 0] }}
-                      transition={{
-                        duration: particleDuration,
-                        delay: particleDelay + pIdx * (particleDuration / 2),
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      style={{ filter: "drop-shadow(0 0 4px rgba(200,255,0,0.8))" }}
-                    >
-                      <animateMotion
-                        dur={`${particleDuration}s`}
-                        begin={`${particleDelay + pIdx * (particleDuration / 2)}s`}
-                        repeatCount="indefinite"
-                        path={
-                          isTargetCenter
-                            ? `M ${node.x * 4.7},${node.y * 5.2} L ${centerX * 4.7},${centerY * 5.2}`
-                            : `M ${centerX * 4.7},${centerY * 5.2} L ${node.x * 4.7},${node.y * 5.2}`
-                        }
-                      />
-                    </motion.circle>
-                  ))}
-              </g>
-            );
-          })}
-        </svg>
-
-        {/* Graph Nodes */}
-        <AnimatePresence>
-          {currentStepData.nodes.map((node, i) => (
-            <motion.div
-              key={node.id}
-              layoutId={node.id}
-              className="absolute z-40"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                left: `${node.x}%`,
-                top: `${node.y}%`,
-              }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{
-                ...layoutTransition,
-                opacity: { duration: 0.4 },
-                scale: { duration: 0.4 },
-                delay: active === 2 ? i * 0.15 : 0, // Sequential in DESIGN
-              }}
-              style={{ transform: "translate(-50%, -50%)" }}
-            >
-              {/* Highlight Pulse on enter */}
-              <motion.div
-                className="absolute inset-0 rounded-md border border-lime"
-                initial={{ scale: 1, opacity: 0.8 }}
-                animate={{ scale: 1.5, opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              />
-
-              <div
-                className={`relative flex items-center justify-center rounded-md border bg-black/90 px-3 py-1.5 font-mono text-[10px] font-medium uppercase tracking-wider backdrop-blur-md transition-colors duration-500 ${
-                  node.emphasis
-                    ? "border-lime/60 text-lime shadow-[0_0_15px_rgba(200,255,0,0.2)]"
-                    : "border-lime/20 text-lime/80 shadow-[0_0_10px_rgba(200,255,0,0.05)]"
-                }`}
-              >
-                <motion.span
-                  key={`text-${active}-${node.id}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {node.text}
-                </motion.span>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      {/* Constellation background dots (matching reference aesthetic) */}
+      <div className="pointer-events-none absolute inset-0">
+        {[
+          { x: "12%", y: "18%" },
+          { x: "36%", y: "15%" },
+          { x: "52%", y: "22%" },
+          { x: "78%", y: "16%" },
+          { x: "88%", y: "32%" },
+          { x: "16%", y: "65%" },
+          { x: "48%", y: "52%" },
+          { x: "72%", y: "54%" },
+          { x: "84%", y: "78%" },
+          { x: "24%", y: "88%" },
+        ].map((pt, idx) => (
+          <span
+            key={idx}
+            className="absolute h-1 w-1 rounded-full bg-lime/25"
+            style={{
+              left: pt.x,
+              top: pt.y,
+              filter: "drop-shadow(0 0 3px rgba(200,255,0,0.4))",
+            }}
+          />
+        ))}
       </div>
 
-      {/* Bottom Progress Bar */}
-      <div className="relative z-20 w-full border-t border-white/[0.06] bg-black/40 backdrop-blur-md p-4">
+      {/* Top Header Information Overlay */}
+      <div className="relative z-30 p-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="space-y-0.5">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-lime/80 font-bold">
+              INTERACTIVE ARCHITECTURE · 05 STAGES
+            </span>
+          </div>
+          <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-white/95">
+            Separate. Connect. Create.
+          </h3>
+        </div>
+
+        {/* Dynamic Status Pill */}
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] backdrop-blur-md font-mono text-[10px]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime opacity-60" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-lime" />
+          </span>
+          <span className="text-white/70 uppercase tracking-wider">
+            {stageStatus}
+          </span>
+        </div>
+      </div>
+
+      {/* Main Canvas Area: 5 Liquid Glass Spheres */}
+      <div className="relative flex-1 w-full overflow-hidden">
+        {/* Ambient Core Glow (Grows gently as stages assemble, fullest at Step 5) */}
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+          animate={{
+            width: 220 + active * 35,
+            height: 220 + active * 35,
+            opacity: 0.08 + active * 0.035,
+            scale: active === 4 ? [1, 1.05, 1] : 1,
+          }}
+          transition={{
+            duration: active === 4 ? 3.5 : 0.8,
+            repeat: active === 4 ? Infinity : 0,
+            ease: "easeInOut",
+          }}
+          style={{
+            background:
+              "radial-gradient(circle, rgba(200,255,0,0.35) 0%, rgba(200,255,0,0.06) 55%, transparent 75%)",
+            filter: "blur(42px)",
+          }}
+        />
+
+        {/* Central Brand Watermark in Cluster Core */}
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center"
+          animate={{
+            opacity: active >= 1 ? 0.9 : 0.4,
+            scale: active === 4 ? 1.05 : 0.95,
+          }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="rounded-full px-3 py-1 border border-lime/30 bg-black/70 backdrop-blur-md shadow-[0_0_20px_rgba(200,255,0,0.15)]">
+            <span className="font-mono text-[9px] font-black uppercase tracking-[0.25em] text-lime">
+              REGENDZ IT
+            </span>
+          </div>
+        </motion.div>
+
+        {/* The 5 Interactive Glass Bubbles */}
+        {STAGE_BUBBLES.map((bubble, i) => {
+          const isSelected = active === i;
+          const isAssembled = i <= active;
+
+          // Target positions: assembled cluster vs separate outer floating position
+          const targetX = isAssembled ? bubble.assemblePos.x : bubble.separatePos.x;
+          const targetY = isAssembled ? bubble.assemblePos.y : bubble.separatePos.y;
+          const targetScale = isSelected ? 1.08 : isAssembled ? 1 : 0.96;
+          const targetRotate = isAssembled ? 0 : bubble.floatDrift.rotate * 0.5;
+
+          // Staggered timing:
+          // When assembling forward: staggered delay based on relative index
+          // When dismantling backward: reverse stagger delay
+          const delay = isMovingForward
+            ? Math.max(0, (i - prevActive) * 0.12)
+            : Math.max(0, (prevActive - i) * 0.1);
+
+          return (
+            <motion.div
+              key={bubble.id}
+              onClick={() => onSelect?.(i)}
+              className="absolute z-20 will-change-transform pointer-events-auto cursor-pointer"
+              style={{
+                width: bubble.size,
+                height: bubble.size,
+                marginLeft: -bubble.size / 2,
+                marginTop: -bubble.size / 2,
+              }}
+              animate={
+                reducedMotion
+                  ? {
+                      left: `${targetX}%`,
+                      top: `${targetY}%`,
+                      scale: targetScale,
+                    }
+                  : {
+                      left: `${targetX}%`,
+                      top: `${targetY}%`,
+                      scale: targetScale,
+                      rotate: targetRotate,
+                    }
+              }
+              transition={{
+                duration: 1.1,
+                delay: reducedMotion ? 0 : delay,
+                ease: [0.25, 1, 0.5, 1],
+              }}
+            >
+              {/* Subtle Organic Hover/Float micro-motion wrapper */}
+              <motion.div
+                className="h-full w-full"
+                animate={
+                  reducedMotion
+                    ? {}
+                    : {
+                        x: [0, bubble.floatDrift.x * 0.35, 0],
+                        y: [0, bubble.floatDrift.y * 0.35, 0],
+                      }
+                }
+                transition={{
+                  duration: 4.5 + i * 0.6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {/* Glass Bubble Sphere Body */}
+                <div
+                  className={`relative h-full w-full rounded-full transition-all duration-700 overflow-hidden ${
+                    isSelected
+                      ? "ring-2 ring-lime/75 shadow-[0_0_35px_rgba(200,255,0,0.4)]"
+                      : isAssembled
+                      ? "ring-1 ring-white/20 shadow-[0_20px_45px_rgba(0,0,0,0.92)] hover:ring-white/40"
+                      : "ring-1 ring-white/10 opacity-70 shadow-[0_15px_30px_rgba(0,0,0,0.85)] hover:opacity-90 hover:ring-white/25"
+                  }`}
+                  style={{
+                    background:
+                      "radial-gradient(circle at 32% 26%, rgba(255,255,255,0.18) 0%, rgba(28,38,24,0.7) 35%, rgba(14,20,12,0.92) 65%, rgba(6,10,6,0.99) 100%)",
+                    boxShadow:
+                      "inset -8px -10px 24px rgba(0,0,0,0.95), inset 4px 5px 12px rgba(255,255,255,0.22), inset 0 0 25px rgba(200,255,0,0.08)",
+                  }}
+                >
+                  {/* Secondary Interior Glass Depth Ring */}
+                  <div
+                    className="absolute inset-[3px] rounded-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 65% 70%, rgba(200,255,0,0.14) 0%, transparent 65%)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  />
+
+                  {/* Primary Specular Highlight */}
+                  <div
+                    className="absolute rounded-full pointer-events-none"
+                    style={{
+                      top: "14%",
+                      left: "20%",
+                      width: "36%",
+                      height: "22%",
+                      background:
+                        "radial-gradient(ellipse at center, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 45%, transparent 75%)",
+                      transform: "rotate(-25deg)",
+                      filter: "blur(0.5px)",
+                    }}
+                  />
+
+                  {/* Soft Fresnel Rim Glow */}
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 75% 75%, rgba(200,255,0,0.22) 0%, transparent 45%)",
+                    }}
+                  />
+
+                  {/* Inner Content Label & Stage Indicator */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center select-none z-10">
+                    <span
+                      className={`font-mono text-[9px] font-bold transition-colors ${
+                        isSelected ? "text-lime" : isAssembled ? "text-white/70" : "text-white/40"
+                      }`}
+                    >
+                      {bubble.n}
+                    </span>
+                    <span
+                      className={`font-display font-black text-[11px] leading-tight mt-0.5 tracking-tight transition-colors ${
+                        isSelected ? "text-white" : isAssembled ? "text-white/90" : "text-white/60"
+                      }`}
+                    >
+                      {bubble.title}
+                    </span>
+                    <span
+                      className={`font-mono text-[7px] uppercase tracking-wider mt-0.5 transition-colors ${
+                        isSelected
+                          ? "text-lime font-bold"
+                          : isAssembled
+                          ? "text-white/50"
+                          : "text-white/30"
+                      }`}
+                    >
+                      {bubble.keyword}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Bottom Stage Progress Bar (Clickable to switch stages) */}
+      <div className="relative z-30 w-full border-t border-white/[0.06] bg-black/50 backdrop-blur-md p-4">
         <div className="flex items-center justify-between gap-2 overflow-x-auto scrollbar-hide">
           {steps.map((item, i) => {
             const isActive = active === i;
+            const isAssembled = i <= active;
             return (
-              <div key={item.n} className="flex items-center gap-2 shrink-0">
+              <button
+                key={item.n}
+                type="button"
+                onClick={() => onSelect?.(i)}
+                className="flex items-center gap-2 shrink-0 cursor-pointer group text-left"
+              >
                 <div
-                  className={`flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-500 ${
+                  className={`flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-300 ${
                     isActive
-                      ? "text-lime drop-shadow-[0_0_8px_rgba(200,255,0,0.4)]"
-                      : "text-white/40"
+                      ? "text-lime drop-shadow-[0_0_8px_rgba(200,255,0,0.5)] font-bold"
+                      : isAssembled
+                      ? "text-white/80 group-hover:text-white"
+                      : "text-white/40 group-hover:text-white/60"
                   }`}
                 >
-                  <span className={isActive ? "font-bold" : ""}>{item.n}</span>
+                  <span className={isActive ? "text-lime" : "text-white/40"}>
+                    {item.n}
+                  </span>
                   <span>{item.title}</span>
                 </div>
                 {i < steps.length - 1 && (
                   <span className="text-white/20 ml-2">→</span>
                 )}
-              </div>
+              </button>
             );
           })}
         </div>

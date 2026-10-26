@@ -43,7 +43,7 @@ export default function Hero() {
             transition={{ delay: 0.12 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <MagneticButton href="#contact" className="bg-lime text-ink shadow-[0_0_40px_rgba(200,255,0,0.25)]">
+            <MagneticButton href="/#contact" className="bg-lime text-ink shadow-[0_0_40px_rgba(200,255,0,0.25)]">
               Start a project
             </MagneticButton>
             <MagneticButton href="#services" className="border border-white/15 bg-white/5 text-white">

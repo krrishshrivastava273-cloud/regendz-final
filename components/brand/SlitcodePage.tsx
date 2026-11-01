@@ -176,20 +176,36 @@ export default function SlitcodePage() {
                   Architect. Build. Scale.
                 </h2>
                 <p className="mt-4 text-white/60 leading-relaxed">
-                  Every line of code is structured for maintainability and velocity. From technical
-                  scoping through production rollout, we implement type-safe workflows, modular
-                  component hierarchies, and automated CI/CD deployments.
+                  We engineer digital products with performance, reliability and long-term maintainability in mind. From initial architecture to deployment, every solution is built to be secure, efficient and ready to evolve alongside your business.
                 </p>
                 <div className="mt-8 space-y-3">
                   {[
-                    "Domain-driven technical architecture tailored to your business model",
-                    "Type-safe development using TypeScript, Next.js, and modern React patterns",
-                    "High Core Web Vitals with optimized server-side rendering and asset delivery",
-                    "Automated test coverage, CI/CD deployment pipelines, and active telemetry",
+                    {
+                      title: "Scalable Architecture",
+                      description:
+                        "Solutions structured around your business requirements, with room to grow and evolve.",
+                    },
+                    {
+                      title: "Clean, Maintainable Code",
+                      description:
+                        "Modern development practices that make applications easier to maintain, update and extend.",
+                    },
+                    {
+                      title: "Performance & Reliability",
+                      description:
+                        "Optimised loading, responsive experiences and dependable application performance.",
+                    },
+                    {
+                      title: "Testing & Deployment",
+                      description:
+                        "Structured testing, controlled releases and ongoing monitoring to support reliable delivery.",
+                    },
                   ].map((point) => (
-                    <div key={point} className="flex items-start gap-3">
+                    <div key={point.title} className="flex items-start gap-3">
                       <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-violet-400" />
-                      <span className="text-sm text-white/70">{point}</span>
+                      <span className="text-sm text-white/70">
+                        <strong className="font-semibold text-white">{point.title}</strong> — {point.description}
+                      </span>
                     </div>
                   ))}
                 </div>

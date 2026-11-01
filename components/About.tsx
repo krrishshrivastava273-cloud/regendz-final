@@ -17,14 +17,10 @@ export default function About() {
         <Reveal delay={0.1}>
           <div className="space-y-4 text-mute">
             <p>
-              Regendz IT is a digital solutions company focused on two things: web
-              development and digital marketing. We start by understanding the business —
-              size, goals, volume, and where it needs to go next.
+              Regendz iT is a digital solutions company bringing together technology, creativity and business strategy under one ecosystem. Through our three specialist verticals, we help businesses build their digital presence, strengthen their market position and develop smarter ways to operate and grow.
             </p>
             <p>
-              Then we build a presence that fits today without boxing in tomorrow. Technology
-              and marketing stay connected, so the site and the demand around it scale as one
-              system — as a long-term partnership, not a one-off delivery.
+              Whether it&apos;s developing digital products, building brand visibility or optimising business operations, our approach begins with understanding what each business needs. We bring the right capabilities together to create solutions that work today, adapt tomorrow and support sustainable growth over time.
             </p>
           </div>
         </Reveal>

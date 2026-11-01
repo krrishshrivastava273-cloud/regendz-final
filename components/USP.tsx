@@ -39,9 +39,8 @@ export default function USP() {
         </Reveal>
         <Reveal delay={0.1}>
           <div className="space-y-5 text-lg leading-relaxed text-mute">
-            <p>We don&apos;t build websites just to look good.</p>
             <p>
-              We build them around your business model, customer journey and future growth.
+              We bring technology, creativity and business strategy together to build solutions that move businesses forward.
             </p>
             <p>
               Whether you&apos;re a startup, growing business or established company, your

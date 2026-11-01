@@ -101,33 +101,33 @@ export const socialOfferings = [
 export const whyCards = [
   {
     n: "01",
-    title: "Scalability First",
-    body: "Built according to your future growth.",
+    title: "Integrated Expertise",
+    body: "Technology, creativity and business strategy brought together under one ecosystem.",
   },
   {
     n: "02",
-    title: "Business Focused",
-    body: "We understand the business before building the solution.",
+    title: "Business-First Thinking",
+    body: "We understand your goals, challenges and operations before developing the right solutions.",
   },
   {
     n: "03",
-    title: "Modern Technology",
-    body: "Fast, secure and modern technology stack.",
+    title: "Tailored Solutions",
+    body: "Every solution is shaped around your requirements, not forced into predefined templates or packages.",
   },
   {
     n: "04",
-    title: "Conversion Focused",
-    body: "The website is designed to turn visitors into customers.",
+    title: "Outcome-Oriented Execution",
+    body: "We focus on meaningful business outcomes, from stronger visibility and engagement to better operations and conversions.",
   },
   {
     n: "05",
-    title: "Growth Driven",
-    body: "Development and marketing work together.",
+    title: "Built to Evolve",
+    body: "Our solutions are designed to adapt as your business grows, changes and takes on new opportunities.",
   },
   {
     n: "06",
     title: "Long-Term Partnership",
-    body: "We don't just deliver and disappear.",
+    body: "We believe in collaboration beyond delivery, supporting continuous improvement and lasting business growth.",
   },
 ];
 
@@ -192,10 +192,26 @@ export const scaleStages = [
 ];
 
 export const uspPath = [
-  { id: "start", label: "Start", copy: "A focused first presence. Right-sized for today." },
-  { id: "grow", label: "Grow", copy: "More pages, more journeys, more conversions." },
-  { id: "scale", label: "Scale", copy: "Architecture that holds traffic, features and teams." },
-  { id: "expand", label: "Expand", copy: "New markets, products and campaigns on the same core." },
+  {
+    id: "start",
+    label: "Start",
+    copy: "Build a strong foundation with the right digital tools, strategy and direction.",
+  },
+  {
+    id: "grow",
+    label: "Grow",
+    copy: "Strengthen your presence, reach the right audience and create meaningful opportunities.",
+  },
+  {
+    id: "scale",
+    label: "Scale",
+    copy: "Streamline operations, leverage technology and build systems that support sustainable growth.",
+  },
+  {
+    id: "expand",
+    label: "Expand",
+    copy: "Explore new markets, launch new opportunities and evolve your business without limits.",
+  },
 ];
 
 export const funnel = [

@@ -68,8 +68,7 @@ export default function Portfolio() {
             Built to make an impact.
           </h2>
           <p className="mt-4 max-w-xl text-mute">
-            Explore four production-grade concept architectures demonstrating how we
-            structure digital identity, corporate credibility, commerce velocity, and demand analytics.
+            Explore selected digital concepts showcasing how we approach brand experiences, business platforms, digital commerce and data-driven solutions.
           </p>
         </Reveal>
 

@@ -16,7 +16,7 @@ const brands = [
     headlinePrefix: "Build digital experiences that",
     headlineAccent: "work.",
     description:
-      "Your business deserves more than a website that just looks good. It deserves one that works hard.",
+      "From high-performance websites to custom applications, we build digital solutions that combine thoughtful design, reliable engineering and functionality.",
     accent: "#8B5CF6",
     accentDim: "rgba(139,92,246,0.12)",
     accentMid: "rgba(139,92,246,0.35)",
@@ -65,7 +65,7 @@ const brands = [
     headlinePrefix: "Less guessing. More knowing.",
     headlineAccent: "Better decisions.",
     description:
-      "Growing a business takes more than hard work. It takes the right strategy, a clear understanding of performance, and decisions backed by meaningful data.",
+      "Better businesses are built on better decisions. We combine strategic thinking, actionable insights and intelligent automation to help businesses operate smarter, solve problems and identify opportunities for growth.",
     accent: "#F59E0B",
     accentDim: "rgba(245,158,11,0.12)",
     accentMid: "rgba(245,158,11,0.35)",
@@ -115,7 +115,7 @@ const brands = [
     headlinePrefix: "Brands that",
     headlineAccent: "make an impact.",
     description:
-      "We craft bold visuals, compelling content, and data-backed strategies to help your brand stand out and stay top of mind.",
+      "From distinctive brand identities and compelling content to strategic campaigns and performance marketing, we help businesses build visibility, connect with their audiences and turn attention into growth.",
     accent: "#E11D48",
     accentDim: "rgba(225,29,72,0.12)",
     accentMid: "rgba(225,29,72,0.35)",
@@ -127,14 +127,14 @@ const brands = [
     streakGrad:
       "linear-gradient(135deg, transparent 30%, rgba(225,29,72,0.1) 65%, transparent 90%)",
     offerings: [
-      "Branding & Visual Identity",
-      "Graphic Design & Creative Content",
-      "Social Media Creatives",
-      "Digital Marketing",
-      "Content & Campaign Development",
-      "Creative & UI Support",
+      "Brand Strategy & Visual Identity",
+      "Graphic Design & Creative Production",
+      "Video Editing & Content Creation",
+      "Social Media Management",
+      "Performance Marketing & Paid Advertising",
+      "Campaign Strategy & Influencer Marketing",
     ],
-    approach: "Brand. Create. Promote. Grow.",
+    approach: "Define. Create. Amplify. Grow.",
     cleverBit:
       "Your competitors are posting, too. Let's give your audience a reason to stop scrolling.",
     cta: "Make Your Brand Stand Out.",
@@ -670,11 +670,10 @@ export default function Services() {
         >
           <p className="kicker mb-4">Three distinct brands. One parent vision.</p>
           <h2 className="display text-[clamp(2rem,4.5vw,3.8rem)] max-w-3xl mx-auto">
-            Built to serve every part of your business.
+            Three disciplines. One integrated approach to business growth.
           </h2>
           <p className="mt-4 text-white/45 max-w-xl mx-auto text-sm leading-relaxed">
-            Regendz IT operates three specialist verticals — each focused on a distinct discipline,
-            working together when your business needs more than one.
+            Regendz iT brings together three specialist brands, each built around a distinct discipline. Together, they combine technology, creativity and strategy to deliver connected solutions for evolving business needs.
           </p>
         </motion.div>
 

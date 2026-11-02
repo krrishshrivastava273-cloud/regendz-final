@@ -54,12 +54,12 @@ export default function ForwaiPage() {
             >
               ← All Services
             </Link>
-            <a
+            <Link
               href="/#contact"
               className="rounded-full bg-amber-500 px-5 py-2.5 text-sm font-semibold text-black hover:bg-amber-400 transition-colors"
             >
               Make Your Move
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -119,12 +119,12 @@ export default function ForwaiPage() {
                 use every day.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <a
+                <Link
                   href="/#contact"
                   className="rounded-full bg-amber-500 px-8 py-3.5 text-sm font-semibold text-black hover:bg-amber-400 transition-all hover:shadow-[0_0_40px_rgba(245,158,11,0.5)]"
                 >
                   Schedule Advisory Session →
-                </a>
+                </Link>
                 <a
                   href="#forwai-offerings"
                   className="rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white hover:border-amber-500/40 transition-colors"
@@ -375,12 +375,12 @@ export default function ForwaiPage() {
               Let&apos;s connect the strategy, data and workflows that help your team make its next move with clarity.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/#contact"
                 className="rounded-full bg-amber-500 px-8 py-4 text-sm font-semibold text-black hover:bg-amber-400 transition-all hover:shadow-[0_0_50px_rgba(245,158,11,0.5)]"
               >
                 Make Your Next Move Smarter →
-              </a>
+              </Link>
               <Link
                 href="/"
                 className="rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-semibold text-white hover:border-white/30 transition-colors"

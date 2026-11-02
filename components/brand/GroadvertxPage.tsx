@@ -46,12 +46,12 @@ export default function GroadvertxPage() {
             >
               ← All Services
             </Link>
-            <a
+            <Link
               href="/#contact"
               className="rounded-full bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-500 transition-colors"
             >
               Stand Out
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -111,12 +111,12 @@ export default function GroadvertxPage() {
                 assets that establish brand authority and engage audiences across digital channels.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <a
+                <Link
                   href="/#contact"
                   className="rounded-full bg-rose-600 px-8 py-3.5 text-sm font-semibold text-white hover:bg-rose-500 transition-all hover:shadow-[0_0_40px_rgba(225,29,72,0.45)]"
                 >
                   Start Creative Collaboration →
-                </a>
+                </Link>
                 <a
                   href="#groadvertx-offerings"
                   className="rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white hover:border-rose-500/40 transition-colors"
@@ -351,12 +351,12 @@ export default function GroadvertxPage() {
               them coming back.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/#contact"
                 className="rounded-full bg-rose-600 px-8 py-4 text-sm font-semibold text-white hover:bg-rose-500 transition-all hover:shadow-[0_0_50px_rgba(225,29,72,0.5)]"
               >
                 Make Your Brand Stand Out →
-              </a>
+              </Link>
               <Link
                 href="/"
                 className="rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-semibold text-white hover:border-white/30 transition-colors"

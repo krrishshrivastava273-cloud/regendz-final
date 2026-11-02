@@ -229,12 +229,12 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
-          <a
+          <Link
             href="/#contact"
             className="text-sm text-mute transition-colors hover:text-white"
           >
             Contact
-          </a>
+          </Link>
           {/* Brands dropdown — right of nav links */}
           <BrandsDropdown />
           <MagneticButton href="/#contact" className="bg-lime text-ink hover:shadow-[0_0_32px_rgba(200,255,0,0.45)]">
@@ -272,13 +272,13 @@ export default function Navbar() {
                   {l.label}
                 </a>
               ))}
-            <a
+            <Link
               href="/#contact"
               className="display text-3xl"
               onClick={() => setOpen(false)}
             >
               Contact
-            </a>
+            </Link>
 
             {/* Mobile brands section */}
             <div>
@@ -322,13 +322,13 @@ export default function Navbar() {
               )}
             </div>
 
-            <a
+            <Link
               href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-4 inline-flex w-fit rounded-full bg-lime px-6 py-3 text-sm font-semibold text-ink"
             >
               Start a project
-            </a>
+            </Link>
           </nav>
         </div>
       )}

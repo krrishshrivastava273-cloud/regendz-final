@@ -41,12 +41,12 @@ export default function SlitcodePage() {
             >
               ← All Services
             </Link>
-            <a
+            <Link
               href="/#contact"
               className="rounded-full bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-violet-500 transition-colors"
             >
               Start a Project
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -111,12 +111,12 @@ export default function SlitcodePage() {
                 seamless third-party integrations.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <a
+                <Link
                   href="/#contact"
                   className="rounded-full bg-violet-600 px-8 py-3.5 text-sm font-semibold text-white hover:bg-violet-500 transition-all hover:shadow-[0_0_40px_rgba(139,92,246,0.4)]"
                 >
                   Start Your Project →
-                </a>
+                </Link>
                 <a
                   href="#slitcode-offerings"
                   className="rounded-full border border-white/15 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white hover:border-violet-500/40 transition-colors"
@@ -363,12 +363,12 @@ export default function SlitcodePage() {
               Tell us about your project and let&apos;s figure out the best approach for your business.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <Link
                 href="/#contact"
                 className="rounded-full bg-violet-600 px-8 py-4 text-sm font-semibold text-white hover:bg-violet-500 transition-all hover:shadow-[0_0_50px_rgba(139,92,246,0.5)]"
               >
                 Let&apos;s Build Something Great →
-              </a>
+              </Link>
               <Link
                 href="/"
                 className="rounded-full border border-white/15 bg-white/5 px-8 py-4 text-sm font-semibold text-white hover:border-white/30 transition-colors"
